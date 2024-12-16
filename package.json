@@ -14,9 +14,9 @@
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "serve-storybook": "serve storybook-static"
+    "storybook": "storybook dev -p 6006 public",
+    "build-storybook": "storybook build public",
+    "serve-storybook": "npx serve ./.storybook"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.1",
