@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <HydrateClient>
       <div>HELLO WORLD</div>
-      <Button>BRUH123</Button>
+      <Button>BRUH1234</Button>
     </HydrateClient>
   );
 }
