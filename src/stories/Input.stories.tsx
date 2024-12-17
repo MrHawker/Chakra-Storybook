@@ -71,7 +71,6 @@ export const focus: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const inputElement = canvas.getByPlaceholderText("Give Your Integration a name");
-
     await userEvent.click(inputElement);
   },
 };
