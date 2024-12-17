@@ -18,6 +18,19 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+			inputBackground: '#09090B',
+			inputBorderBackground: '#27272A',
+			inputText: '#52525B',
+			inputContainerBg: '#18181B',
+			inputLabel: '#A1A1AA',
+			inputFocus: '#10B981',
+			inputValid: '#022C22',
+			inputError: '#450A0A',
+			inputInfo: '#06B6D4',
+			inputInfoBg: '#083344',
+			inputErrorBorder: '#EF4444',
+			inputWarning: '#F97316',
+			inputWarningForeGround: '#431407',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
