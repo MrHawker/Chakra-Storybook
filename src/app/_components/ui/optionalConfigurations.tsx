@@ -24,8 +24,8 @@ export function OptionalConfigurations({ open = false }: { open: boolean }) {
             </span>
           </div>
           <p className="text-sm font-medium text-[#A1A1AA] text-muted-foreground">
-            Whether you're a data wizard who loves to fine-tune or prefer a
-            quick start, we've got you covered! Dive deep or let our smart
+            Whether you&#39;re a data wizard who loves to fine-tune or prefer a
+            quick start, we&#39;ve got you covered! Dive deep or let our smart
             defaults handle it—you can always adjust later.
           </p>
         </div>
