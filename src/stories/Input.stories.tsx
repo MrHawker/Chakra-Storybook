@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Input } from "~/app/_components/ui/input";
 import { InfoIcon } from "./icons/info";
 import { userEvent, within } from "@storybook/testing-library";
+import { TextCursor } from 'lucide-react';
 
 const meta: Meta<typeof Input> = {
-  title: "CanvasElements/chakraInputsDropdowns/Input",
+  title: "Components/CanvasElements/chakraInputsDropdowns/Input",
   component: Input,
   
   tags: ['autodocs'],
@@ -46,6 +47,7 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof Input>;
 
+
 export const resting: Story = {
   args: {
     type: "text",
@@ -53,14 +55,15 @@ export const resting: Story = {
     label: "Name",
     required: true,
     defaultValue: "Artemis-BTC-Feed",
-    kind: "resting",
+    state: "resting",
+    labelIcon: <TextCursor width={16} height={16} />,
   },
 };
 
 export const disabled: Story = {
   args: {
     ...resting.args,
-    kind: "disabled",
+    state: "disabled",
   },
 };
 export const focus: Story = {
@@ -77,15 +80,14 @@ export const focus: Story = {
 export const valid: Story = {
   args: {
     ...resting.args,
-    
-    kind: "valid",
+    state: "valid",
   },
 };
 
 export const error: Story = {
   args: {
     ...resting.args,
-    kind: "error",
+    state: "error",
     
     errorMsg: "Gib the user an Error Message",
   },
@@ -93,7 +95,7 @@ export const error: Story = {
 export const info: Story = {
   args: {
     ...resting.args,
-    kind: "info",
+    state: "info",
     defaultValue: "Artemis-BTC-Feed",
     infoMsg: "Gib the user some useful information",
   },
@@ -101,7 +103,7 @@ export const info: Story = {
 export const validating: Story = {
   args: {
     ...resting.args,
-    kind: "warning",
+    state: "warning",
     defaultValue: "nirmal",
     warningMsg: "Special characters (such as @, #, $, %, &, *, and !) are not allowed in usernames.",
   },
