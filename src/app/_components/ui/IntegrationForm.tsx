@@ -167,14 +167,14 @@ export function IntegrationForm({ formState, log, defaultValues }: IntegrationFo
           {formState === "resting" && (
             <Button
             style={{ fontFamily: manrope.style.fontFamily }}
-            className="rounded-nonebg-transparent border border-buttonOutline text-buttonOutline pointer-events-none w-full text-lg rounded-none font-semibold" type="submit">
+            className=" bg-transparent border border-buttonOutline text-buttonOutline pointer-events-none w-full text-lg rounded-none font-semibold" type="submit">
                 Enter Details
             </Button>
           )}
           {formState === "readyToTest" && (
             <Button
             style={{ fontFamily: manrope.style.fontFamily }}
-            className="rounded-nonew-full bg-[#083344] text-[#06B6D4] text-lg font-semibold hover:bg-[#06B6D4] hover:text-[#083344] transition-colors duration-200 items-center justify-center flex" type="submit">
+            className="rounded-none w-full bg-[#083344] text-[#06B6D4] text-lg font-semibold hover:bg-[#06B6D4] hover:text-[#083344] transition-colors duration-200 items-center justify-center flex" type="submit">
                 <Rocket/>
                 Test Integration 
             </Button>
@@ -182,7 +182,7 @@ export function IntegrationForm({ formState, log, defaultValues }: IntegrationFo
           {formState === "testedSuccessfully" && (
             <Button
             style={{ fontFamily: manrope.style.fontFamily }}
-            className="rounded-nonew-full bg-[#06B6D4] border-[#06B6D4] text-[#083344] items-center justify-center flex text-lg font-semibold text-opacity-80 pointer-events-none" type="submit">
+            className="rounded-none w-full bg-[#06B6D4] border-[#06B6D4] text-[#083344] items-center justify-center flex text-lg font-semibold text-opacity-80 pointer-events-none" type="submit">
                 Test Integration 
                 <Spinner/>
             </Button>
