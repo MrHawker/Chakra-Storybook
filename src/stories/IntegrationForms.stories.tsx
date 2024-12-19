@@ -49,6 +49,7 @@ export const Resting: Story = {
       userName: "",
       dbName: "",
     },
+    ...defaultMessages,
   },
 };
 
@@ -61,6 +62,7 @@ export const ReadyToTest: Story = {
       userName: "nirmal@chakra.ai",
       dbName: "TRANSACTIONS_DB",
     },
+    ...defaultMessages,
     formState: "readyToTest",
   },
 };
@@ -68,6 +70,7 @@ export const ReadyToTest: Story = {
 export const TestedSuccessfully: Story = {
   args: {
     ...ReadyToTest.args,
+    ...defaultMessages,
     formState: "testedSuccessfully",
   },
 };
@@ -75,6 +78,7 @@ export const TestedSuccessfully: Story = {
 export const ReadyToCreate: Story = {
   args: {
     ...ReadyToTest.args,
+    ...defaultMessages,
     formState: "readyToCreate",
   },
 };
@@ -82,6 +86,7 @@ export const ReadyToCreate: Story = {
 export const EnabledView: Story = {
   args: {
     ...ReadyToTest.args,
+    ...defaultMessages,
     formState: "enabledView",
   },
 };      
@@ -89,6 +94,7 @@ export const EnabledView: Story = {
 export const AvailableList: Story = {
   args: {
     ...ReadyToTest.args,
+    ...defaultMessages,
     formState: "availableList",
   },
 };                
@@ -97,6 +103,7 @@ export const RetryActionInfo: Story = {
   args: {
     ...ReadyToTest.args,
     formState: "retryActionInfo",
+    ...defaultMessages,
     log: "SubDescription that could give more info or ask them to reach out.",
   },
 };  
@@ -104,6 +111,7 @@ export const RetryActionInfo: Story = {
 export const RetryAction: Story = {
   args: {
     ...ReadyToTest.args,
+    ...defaultMessages,
     formState: "retryAction",
   },
 };            
