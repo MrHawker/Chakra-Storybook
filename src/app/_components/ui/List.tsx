@@ -31,7 +31,7 @@ export function List({
   return (
     <TableRow
       className={cn(
-        "grid w-full grid-cols-8 overflow-hidden border-b border-[#27272A] bg-[#09090B] px-2 hover:bg-[#18181B]",
+        "grid min-w-[900px] w-full grid-cols-8 overflow-hidden border-b border-[#27272A] bg-[#09090B] px-2 hover:bg-[#18181B]",
         manrope.className,  
         className,
       )}

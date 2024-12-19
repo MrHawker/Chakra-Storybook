@@ -18,14 +18,14 @@ export function TableList({
   rows,
 }: TableListProps) {
   return (
-        <Table className={cn(manrope.className, "w-full p-0 rounded-md")}>
+        <Table className={cn(manrope.className, "w-full p-0 rounded-md min-w-[900px]")}>
             <TableHeader className="pointer-events-none"> 
             <TableRow className="grid grid-cols-8 px-2 rounded-t-md bg-[#18181B] border-b border-[#27272A]">
-                <TableHead className="col-span-4 flex items-center border-r border-[#27272A]">{columns[0]}</TableHead>
-                <TableHead className="col-span-1 flex items-center border-r border-[#27272A]">{columns[1]}</TableHead>
-                <TableHead className="col-span-1 flex items-center border-r border-[#27272A]">{columns[2]}</TableHead>
-                <TableHead className="col-span-1 flex items-center border-r border-[#27272A]">{columns[3]}</TableHead>
-                <TableHead className="col-span-1 flex items-center border-[#27272A]">{columns[4]}</TableHead>
+                <TableHead className="col-span-4 flex items-center border-r border-[#27272A] truncate">{columns[0]}</TableHead>
+                <TableHead className="col-span-1 flex items-center border-r border-[#27272A] truncate">{columns[1]}</TableHead>
+                <TableHead className="col-span-1 flex items-center border-r border-[#27272A] truncate">{columns[2]}</TableHead>
+                <TableHead className="col-span-1 flex items-center border-r border-[#27272A] truncate">{columns[3]}</TableHead>
+                    <TableHead className="col-span-1 flex items-center border-[#27272A] truncate">{columns[4]}</TableHead>
             </TableRow>
             </TableHeader>
             <TableBody>
