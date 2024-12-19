@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { IntegrationForm } from "~/app/_components/ui/IntegrationForm";
+import { InputMessages, IntegrationForm } from "~/app/_components/ui/IntegrationForm";
 
 const meta: Meta<typeof IntegrationForm> = {
   title: "Components/IntegrationForm", 
@@ -16,6 +16,29 @@ const meta: Meta<typeof IntegrationForm> = {
 
 export default meta;
 type Story = StoryObj<typeof IntegrationForm>; 
+
+const defaultMessages: InputMessages = {
+  integrationName: {
+    errorMsg: "",
+    infoMsg: "",
+    warningMsg: "",
+  },
+  integrationType: {
+    errorMsg: "",
+    infoMsg: "",
+    warningMsg: "",
+  },
+  userName: {
+    errorMsg: "",
+    infoMsg: "",
+    warningMsg: "",
+  },
+  dbName: {
+    errorMsg: "",
+    infoMsg: "",
+    warningMsg: "",
+  },
+};
 
 export const Resting: Story = {
   args: {
@@ -89,5 +112,12 @@ export const WarningPrompt: Story = {
   args: {
     ...ReadyToTest.args,
     formState: "warningPrompt",
+    messages : {
+      ...defaultMessages,
+      userName: {
+        ...defaultMessages.userName,
+        warningMsg: "This looks like a personal email. Please use a Organization email.",
+      },
+    },
   },
 };      

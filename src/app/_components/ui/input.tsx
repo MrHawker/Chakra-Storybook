@@ -6,6 +6,7 @@ import { InfoIcon } from "~/stories/icons/info";
 import { StopIcon } from "~/stories/icons/stop";
 import { DeleteIcon } from "~/stories/icons/delete";
 import { CheckmarkIcon } from "~/stories/icons/checkmark";
+import { useState } from "react";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -22,26 +23,45 @@ const Input = React.forwardRef<
     warningMsg?: string;
     dismissable?: boolean;
     description?: string;
+    defaultValue?: string;
   }
 >(
   (
     {
       className,
+      errorMsg,
+      infoMsg,
+      warningMsg,
       type,
       placeholder,
       required,
       label,
       labelIcon,
       state,
-      errorMsg,
-      infoMsg,
-      warningMsg,
+      defaultValue,
       dismissable,
       description,
       ...props
     },
     ref,
   ) => {
+    const [value, setValue] = useState<string>(defaultValue || "");
+    
+    if(value.length === 0) {
+      state = "resting";
+    }
+    if(value.length > 0 && state !== "disabled") {
+      state = "valid";
+    }
+    if(infoMsg && infoMsg.length > 0) {
+      state = "info";
+    }
+    if(warningMsg && warningMsg.length > 0) {
+      state = "warning";
+    }
+    if(errorMsg && errorMsg.length > 0) {
+      state = "error";
+    }
     return (
       <div
         className={`rounded-sm w-full border border-inputBorderBackground bg-inputContainerBg p-1 pt-2 ${manrope.className} space-y-2 ${state === "disabled" ? "opacity-30" : ""} `}
@@ -58,12 +78,13 @@ const Input = React.forwardRef<
         </div>
         {description && <p className="text-xs text-[#52525B] px-[6px]">{description}</p>}
         <div
-          className={`flex items-center justify-between rounded-sm border border-inputBorderBackground bg-inputBackground p-3 focus-within:border-inputFocus ${state === "valid" ? "border-inputValid" : ""} ${state === "error" ? "border-inputErrorBorder bg-inputError" : ""} ${state === "info" ? "border-inputInfo bg-inputInfoBg" : ""} ${state === "warning" ? "border-inputWarning bg-inputWarningForeGround" : ""} `}
+          className={`transition-all duration-200 flex items-center justify-between rounded-sm border border-inputBorderBackground bg-inputBackground p-3 focus-within:border-inputFocus ${state === "valid" ? "border-inputValid" : ""} ${state === "error" ? "border-inputErrorBorder bg-inputError" : ""} ${state === "info" ? "border-inputInfo bg-inputInfoBg" : ""} ${state === "warning" ? "border-inputWarning bg-inputWarningForeGround" : ""} `}
         >
           <input
+
             type={type}
             className={cn(
-              "flex w-full bg-transparent text-sm font-medium text-inputText text-muted placeholder:text-inputText focus:outline-none",
+              "flex w-full bg-transparent text-sm font-medium text-inputText text-muted placeholder:text-inputText focus:outline-none ",
               className,
               state === "error" ? "text-destructive" : "",
               state === "info" ? "text-inputInfo" : "",
@@ -73,6 +94,8 @@ const Input = React.forwardRef<
             ref={ref}
             placeholder={placeholder}
             {...props}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
           />
           {state === "resting" ? (
             <InfoIcon />

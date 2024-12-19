@@ -1,9 +1,9 @@
 import { Manrope } from "next/font/google";
 import { Button } from "./button";
-import { House } from 'lucide-react';
+import { House } from "lucide-react";
 import Spinner from "~/stories/icons/spinner";
-import { CheckmarkIcon } from "~/stories/icons/checkmark";
-import { CheckCheck } from 'lucide-react';
+import { CheckCheck } from "lucide-react";
+import { useState } from "react";
 
 interface CustomButtonProps {
   children: React.ReactNode;
@@ -11,34 +11,45 @@ interface CustomButtonProps {
   state?: "resting" | "disabled" | "loading" | "success";
 }
 const manrope = Manrope({
-    subsets: ["latin"],
-  });
-export function CustomButton({ children, variant, state }: CustomButtonProps) {
-  return <Button
-  className={`${variant === "destructive" 
-    && `bg-buttonDestructive text-buttonDestructiveHover hover:text-buttonDestructive hover:bg-buttonDestructiveHover 
-    ${(state === "loading" || state === "success" || state === "disabled") && "pointer-events-none text-buttonDestructive bg-buttonDestructiveHover"}` } 
-    ${variant === "filled" 
-    && `bg-buttonPrimary text-buttonPrimaryText hover:bg-buttonPrimaryHover 
-    ${(state === "loading" || state === "success" || state === "disabled") && "pointer-events-none text-buttonPrimaryText bg-buttonPrimaryHover"}` }
-    ${variant === "outline" 
-    && `bg-transparent border border-buttonOutline text-buttonOutline hover:bg-buttonOutlineHover 
-    ${(state === "loading" || state === "success" || state === "disabled") && "pointer-events-none text-buttonOutline bg-buttonOutlineHover"}` }
-    ${state === "disabled" && "opacity-30 bg-transparent border border-buttonOutline text-buttonOutline"}
-    ${variant === "info" 
-    && `bg-buttonInfo text-buttonInfoHover hover:bg-buttonInfoHover hover:text-buttonInfo 
-    ${(state === "loading" || state === "success" || state === "disabled") && "pointer-events-none text-buttonInfoText bg-buttonInfoHover"}` }
-    ${state === "disabled" && "opacity-30 border border-buttonInfo "}
-    ${variant === "warning" 
-    && `bg-buttonWarning text-buttonWarningHover hover:bg-buttonWarningHover hover:text-buttonWarning 
-    ${(state === "loading" || state === "success" || state === "disabled") && "pointer-events-none text-buttonWarningText bg-buttonWarningHover"}` }
-    ${state === "disabled" && "opacity-30 border border-buttonWarning "}
-    ${manrope.className} font-semibold rounded-sm`}
-  >
-    {(state === "resting" || state === "disabled") && <House />}
-    {children}
-    {(state === "resting" || state === "disabled") && <House />}
-    {state === "loading" && <Spinner />}
-    {state === "success" && <CheckCheck  />}
-  </Button>
+  subsets: ["latin"],
+});
+export function CustomButton({
+  children,
+  variant,
+  state = "resting",
+}: CustomButtonProps) {
+  const [buttonState, setButtonState] = useState<
+    "resting" | "disabled" | "loading" | "success"
+  >(state);
+  return (
+    <Button
+      onClick={() => {
+        if (buttonState === "resting") {
+          setButtonState("loading");
+        }
+      }}
+      className={`${
+        variant === "destructive" &&
+        `bg-buttonDestructive text-buttonDestructiveHover hover:text-buttonDestructive hover:bg-buttonDestructiveHover ${(buttonState === "loading" || buttonState === "success" || buttonState === "disabled") && "text-buttonDestructive bg-buttonDestructiveHover pointer-events-none"}`
+      } ${
+        variant === "filled" &&
+        `bg-buttonPrimary text-buttonPrimaryText hover:bg-buttonPrimaryHover ${(buttonState === "loading" || buttonState === "success" || buttonState === "disabled") && "text-buttonPrimaryText bg-buttonPrimaryHover pointer-events-none"}`
+      } ${
+        variant === "outline" &&
+        `border-buttonOutline text-buttonOutline hover:bg-buttonOutlineHover border bg-transparent ${(buttonState === "loading" || buttonState === "success" || buttonState === "disabled") && "text-buttonOutline bg-buttonOutlineHover pointer-events-none"}`
+      } ${buttonState === "disabled" && "border-buttonOutline text-buttonOutline border bg-transparent opacity-30"} ${
+        variant === "info" &&
+        `bg-buttonInfo text-buttonInfoHover hover:bg-buttonInfoHover hover:text-buttonInfo ${(buttonState === "loading" || buttonState === "success" || buttonState === "disabled") && "text-buttonInfoText bg-buttonInfoHover pointer-events-none"}`
+      } ${buttonState === "disabled" && "border-buttonInfo border opacity-30"} ${
+        variant === "warning" &&
+        `bg-buttonWarning text-buttonWarningHover hover:bg-buttonWarningHover hover:text-buttonWarning ${(buttonState === "loading" || buttonState === "success" || buttonState === "disabled") && "text-buttonWarningText bg-buttonWarningHover pointer-events-none"}`
+      } ${buttonState === "disabled" && "border-buttonWarning border opacity-30"} ${manrope.className} rounded-sm font-semibold`}
+    >
+      {(buttonState === "resting" || buttonState === "disabled") && <House />}
+      {children}
+      {(buttonState === "resting" || buttonState === "disabled") && <House />}
+      {buttonState === "loading" && <Spinner />}
+      {buttonState === "success" && <CheckCheck />}
+    </Button>
+  );
 }

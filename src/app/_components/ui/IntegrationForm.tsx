@@ -13,9 +13,9 @@ const formSchema = z.object({
 });
 
 const manrope = Manrope({
-    subsets: ["latin"],
-  });
-  
+  subsets: ["latin"],
+});
+
 import {
   Form,
   FormControl,
@@ -32,11 +32,12 @@ import { Databricks } from "~/stories/icons/databricks";
 import { Snowflake } from "~/stories/icons/snowflake";
 import { Manrope } from "next/font/google";
 import { Info, RefreshCcw, Rocket, TextCursor } from "lucide-react";
-import { UserRound } from 'lucide-react';
-import { Database } from 'lucide-react';
+import { UserRound } from "lucide-react";
+import { Database } from "lucide-react";
 import { OptionalConfigurations } from "./optionalConfigurations";
 import { CustomButton } from "./custom-button";
 import Spinner from "~/stories/icons/spinner";
+import { useEffect, useState } from "react";
 
 interface IntegrationFormProps {
   formState:
@@ -51,25 +52,78 @@ interface IntegrationFormProps {
     | "warningPrompt";
   log?: string | null;
   defaultValues?: z.infer<typeof formSchema>;
+  messages?: InputMessages;
+  
 }
 
-export function IntegrationForm({ formState, log, defaultValues }: IntegrationFormProps) {
+export interface FieldMessages {
+  errorMsg?: string;
+  infoMsg?: string;
+  warningMsg?: string;
+}
+
+export interface InputMessages {
+  integrationName: FieldMessages;
+  integrationType: FieldMessages;
+  userName: FieldMessages;
+  dbName: FieldMessages;
+}
+
+export function IntegrationForm({
+  formState,
+  log,
+  defaultValues,
+  messages,
+}: IntegrationFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
 
+  const [fieldMessages, setFieldMessages] = useState(messages || {
+    integrationName: {
+      errorMsg: "",
+      infoMsg: "",
+      warningMsg: "",
+    },
+    integrationType: {
+      errorMsg: "",
+      infoMsg: "",
+      warningMsg: "",
+    },
+    userName: {
+      errorMsg: "",
+      infoMsg: "",
+      warningMsg: "",
+    },
+    dbName: {
+      errorMsg: "",
+      infoMsg: "",
+      warningMsg: "",
+    },
+  });
+  
+  useEffect(() => {
+    if (messages) {
+      setFieldMessages(messages);
+    }
+  }, [messages]);
+
   return (
-    <div className="space-y-3 rounded-lg" style={{ fontFamily: manrope.style.fontFamily }}>
-      <div className="space-y-3" >
+    <div
+      className="space-y-3 rounded-lg"
+      style={{ fontFamily: manrope.style.fontFamily }}
+    >
+      <div className="space-y-3">
         <p className="text-xl text-white">Required Details</p>
         <p className="text-[#A1A1AA] text-muted-foreground">
-            We need these details to get your server setup and connected to your database.
+          We need these details to get your server setup and connected to your
+          database.
         </p>
-    </div>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
@@ -101,7 +155,9 @@ export function IntegrationForm({ formState, log, defaultValues }: IntegrationFo
               <FormItem>
                 <FormControl>
                   <Input
-                    
+                    errorMsg={fieldMessages.integrationName.errorMsg}
+                    infoMsg={fieldMessages.integrationName.infoMsg}
+                    warningMsg={fieldMessages.integrationName.warningMsg}
                     state={formState !== "resting" ? "valid" : "resting"}
                     required
                     label="Name"
@@ -109,6 +165,10 @@ export function IntegrationForm({ formState, log, defaultValues }: IntegrationFo
                     placeholder="Give your integration a name"
                     description="Give your integration a name"
                     {...field}
+                    defaultValue={field.value}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
@@ -122,14 +182,17 @@ export function IntegrationForm({ formState, log, defaultValues }: IntegrationFo
               <FormItem>
                 <FormControl>
                   <Input
-                    state={formState !== "resting" ?  formState === "warningPrompt" ? "warning" : "valid" : "resting"}
-                    warningMsg={formState === "warningPrompt" ? "This looks like a personal email. Please use a Organization email. " : ""}
+                    errorMsg={fieldMessages.userName.errorMsg}
+                    infoMsg={fieldMessages.userName.infoMsg}
+                    warningMsg={fieldMessages.userName.warningMsg}
+                    
                     required
                     label="User"
                     labelIcon={<UserRound width={16} height={16} />}
                     placeholder="The username to access this instance"
                     description="Provide Access to specific users, if you have multiple users, seperate them by comma values."
                     {...field}
+                    defaultValue={field.value}
                   />
                 </FormControl>
                 <FormMessage />
@@ -143,6 +206,9 @@ export function IntegrationForm({ formState, log, defaultValues }: IntegrationFo
               <FormItem>
                 <FormControl>
                   <Input
+                    errorMsg={fieldMessages.dbName.errorMsg}
+                    infoMsg={fieldMessages.dbName.infoMsg}
+                    warningMsg={fieldMessages.dbName.warningMsg}
                     state={formState !== "resting" ? "valid" : "resting"}
                     required
                     label="Database"
@@ -150,6 +216,7 @@ export function IntegrationForm({ formState, log, defaultValues }: IntegrationFo
                     placeholder="give your database a unique name."
                     description="The database will store all the integration specific infoormation. "
                     {...field}
+                    defaultValue={field.value}
                   />
                 </FormControl>
                 <FormMessage />
@@ -159,63 +226,70 @@ export function IntegrationForm({ formState, log, defaultValues }: IntegrationFo
           <OptionalConfigurations open={false} />
           {formState === "readyToCreate" && (
             <Button
-            style={{ fontFamily: manrope.style.fontFamily }}
-            className="border border-[#064E3B] w-full text-lg rounded-none font-semibold bg-[#10B981] text-[#022C22] hover:bg-[#022C22] hover:text-[#10B981] transition-colors duration-200" type="submit">
-                Create Integration
+              style={{ fontFamily: manrope.style.fontFamily }}
+              className="w-full rounded-none border border-[#064E3B] bg-[#10B981] text-lg font-semibold text-[#022C22] transition-colors duration-200 hover:bg-[#022C22] hover:text-[#10B981]"
+              type="submit"
+            >
+              Create Integration
             </Button>
           )}
           {formState === "resting" && (
             <Button
-            style={{ fontFamily: manrope.style.fontFamily }}
-            className=" bg-transparent border border-buttonOutline text-buttonOutline pointer-events-none w-full text-lg rounded-none font-semibold" type="submit">
-                Enter Details
+              style={{ fontFamily: manrope.style.fontFamily }}
+              className="border-buttonOutline text-buttonOutline pointer-events-none w-full rounded-none border bg-transparent text-lg font-semibold"
+              type="submit"
+            >
+              Enter Details
             </Button>
           )}
           {formState === "readyToTest" && (
             <Button
-            style={{ fontFamily: manrope.style.fontFamily }}
-            className="rounded-none w-full bg-[#083344] text-[#06B6D4] text-lg font-semibold hover:bg-[#06B6D4] hover:text-[#083344] transition-colors duration-200 items-center justify-center flex" type="submit">
-                <Rocket/>
-                Test Integration 
+              style={{ fontFamily: manrope.style.fontFamily }}
+              className="flex w-full items-center justify-center rounded-none bg-[#083344] text-lg font-semibold text-[#06B6D4] transition-colors duration-200 hover:bg-[#06B6D4] hover:text-[#083344]"
+              type="submit"
+            >
+              <Rocket />
+              Test Integration
             </Button>
           )}
           {formState === "testedSuccessfully" && (
             <Button
-            style={{ fontFamily: manrope.style.fontFamily }}
-            className="rounded-none w-full bg-[#06B6D4] border-[#06B6D4] text-[#083344] items-center justify-center flex text-lg font-semibold text-opacity-80 pointer-events-none" type="submit">
-                Test Integration 
-                <Spinner/>
+              style={{ fontFamily: manrope.style.fontFamily }}
+              className="pointer-events-none flex w-full items-center justify-center rounded-none border-[#06B6D4] bg-[#06B6D4] text-lg font-semibold text-[#083344] text-opacity-80"
+              type="submit"
+            >
+              Test Integration
+              <Spinner />
             </Button>
           )}
           {(formState === "retryActionInfo" || formState === "retryAction") && (
             <Button
-            style={{ fontFamily: manrope.style.fontFamily }}
-            className="rounded-none w-full bg-[#450A0A] border-[#06B6D4] text-[#EF4444] hover:bg-[#EF4444] hover:text-[#450A0A] items-center justify-center flex text-lg font-semibold " type="submit">
-                Retry
-                <RefreshCcw />
+              style={{ fontFamily: manrope.style.fontFamily }}
+              className="flex w-full items-center justify-center rounded-none border-[#06B6D4] bg-[#450A0A] text-lg font-semibold text-[#EF4444] hover:bg-[#EF4444] hover:text-[#450A0A]"
+              type="submit"
+            >
+              Retry
+              <RefreshCcw />
             </Button>
           )}
 
           {formState === "warningPrompt" && (
             <Button
-            style={{ fontFamily: manrope.style.fontFamily }}
-            className="rounded-none w-full bg-[#431407] border-[#431407] text-[#F97316] pointer-events-none items-center justify-center flex text-lg font-semibold " type="submit">
-                <Info/>
-                Please fix the error to proceed
-                
+              style={{ fontFamily: manrope.style.fontFamily }}
+              className="pointer-events-none flex w-full items-center justify-center rounded-none border-[#431407] bg-[#431407] text-lg font-semibold text-[#F97316]"
+              type="submit"
+            >
+              <Info />
+              Please fix the error to proceed
             </Button>
           )}
         </form>
       </Form>
       {log && (
-      <div className="bg-[#450A0A] rounded border border-[#EF4444] text-[#EF4444] p-6 pr-8 space-y-4">
-        <h3 className="font-semibold">
-            Error Title
-        </h3>
-        <p className="text-sm ">
-            {log}
-        </p>
-      </div>
+        <div className="space-y-4 rounded border border-[#EF4444] bg-[#450A0A] p-6 pr-8 text-[#EF4444]">
+          <h3 className="font-semibold">Error Title</h3>
+          <p className="text-sm">{log}</p>
+        </div>
       )}
     </div>
   );

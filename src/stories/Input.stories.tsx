@@ -54,7 +54,6 @@ export const resting: Story = {
     placeholder: "Give Your Integration a name",
     label: "Name",
     required: true,
-    defaultValue: "Artemis-BTC-Feed",
     state: "resting",
     labelIcon: <TextCursor width={16} height={16} />,
   },
@@ -63,6 +62,7 @@ export const resting: Story = {
 export const disabled: Story = {
   args: {
     ...resting.args,
+    defaultValue: "Artemis-BTC-Feed",
     state: "disabled",
   },
 };
@@ -80,6 +80,7 @@ export const focus: Story = {
 export const valid: Story = {
   args: {
     ...resting.args,
+    defaultValue: "Artemis-BTC-Feed",
     state: "valid",
   },
 };
@@ -88,7 +89,7 @@ export const error: Story = {
   args: {
     ...resting.args,
     state: "error",
-    
+    defaultValue: "Artemis-BTC-Feed",
     errorMsg: "Gib the user an Error Message",
   },
 };
