@@ -1,14 +1,14 @@
-export const Databricks = () => {
+export const Databricks = ({ width = 12, height = 12, isOpen = false }: { width?: number; height?: number, isOpen?: boolean }) => {
   return (
     <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <rect width="12" height="12" fill="url(#pattern0_5812_13211)" />
+      <rect width={width} height={height} fill="url(#pattern0_5812_13211)" />
       <defs>
         <pattern
           id="pattern0_5812_13211"
