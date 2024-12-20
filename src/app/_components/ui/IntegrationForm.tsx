@@ -50,7 +50,7 @@ interface IntegrationFormProps {
     | "retryActionInfo"
     | "retryAction"
     | "warningPrompt";
-  log?: string | null;
+  log?: string;
   defaultValues?: z.infer<typeof formSchema>;
   messages?: InputMessages;
   

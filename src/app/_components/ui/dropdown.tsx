@@ -20,7 +20,7 @@ interface Integration {
   onClick?: () => void;
 }
 interface DropdownProps {
-  trigger?: React.ReactNode;
+  trigger?: string;
   disabled?: boolean;
   required?: boolean;
   label?: string;
