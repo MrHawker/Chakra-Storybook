@@ -17,6 +17,7 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+		
   		colors: {
   			inputBackground: '#09090B',
   			inputBorderBackground: '#27272A',
@@ -48,6 +49,7 @@ export default {
   			buttonInfoHover: '#06B6D4',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+			floatingNavHover: '#1b1b20',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'

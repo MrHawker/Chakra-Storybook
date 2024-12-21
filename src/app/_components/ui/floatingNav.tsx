@@ -51,13 +51,15 @@ export function FloatingNav({
               <SidebarMenu className="gap-2">
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton className="hover:bg-[#18181B]" asChild>
                       <a
                         href={item.description}
                         
                         className={cn(
-                          "border-none flex w-fit items-center whitespace-nowrap transition-all duration-300 ease-in-out py-[6px] h-fit rounded-sm hover:bg-[#28282b]  hover:text-white gap-0",
+                        
+                          "border-none flex w-fit items-center transition-all duration-300 ease-in-out py-[6px] h-fit rounded-sm hover:text-white gap-0",
                           expanded ? "gap-4" : "gap-0",
+                          
                         )}
                       >
                         <item.icon className="!h-5 !w-[21px]" />
