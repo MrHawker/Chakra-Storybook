@@ -54,8 +54,9 @@ export function FloatingNav({
                     <SidebarMenuButton asChild>
                       <a
                         href={item.description}
+                        
                         className={cn(
-                          "border-none flex w-fit items-center whitespace-nowrap transition-all duration-300 ease-in-out py-[6px] h-fit rounded-sm hover:bg-[#464648] hover:text-white gap-0",
+                          "border-none flex w-fit items-center whitespace-nowrap transition-all duration-300 ease-in-out py-[6px] h-fit rounded-sm hover:bg-[#28282b]  hover:text-white gap-0",
                           expanded ? "gap-4" : "gap-0",
                         )}
                       >
