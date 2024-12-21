@@ -4,13 +4,14 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { Manrope } from "next/font/google";
-import { Button } from "./button";
 import { Snowflake } from "~/stories/icons/snowflake";
 import { Databricks } from "~/stories/icons/databricks";
 import { S3 } from "~/stories/icons/s3";
+
 const manrope = Manrope({
   subsets: ["latin"],
 });
+
 interface GridCardProps {
   imgSource: string;
   description: string;

@@ -19,10 +19,8 @@ const manrope = Manrope({
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "./form";
 import { Input } from "./input";
@@ -35,7 +33,6 @@ import { Info, RefreshCcw, Rocket, TextCursor } from "lucide-react";
 import { UserRound } from "lucide-react";
 import { Database } from "lucide-react";
 import { OptionalConfigurations } from "./optionalConfigurations";
-import { CustomButton } from "./custom-button";
 import Spinner from "~/stories/icons/spinner";
 import { useEffect, useState } from "react";
 
@@ -75,10 +72,12 @@ export function IntegrationForm({
   defaultValues,
   messages,
 }: IntegrationFormProps) {
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,
   });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
@@ -158,14 +157,13 @@ export function IntegrationForm({
                     errorMsg={fieldMessages.integrationName.errorMsg}
                     infoMsg={fieldMessages.integrationName.infoMsg}
                     warningMsg={fieldMessages.integrationName.warningMsg}
-                    state={formState !== "resting" ? "valid" : "resting"}
                     required
                     label="Name"
                     labelIcon={<TextCursor width={16} height={16} />}
                     placeholder="Give your integration a name"
                     description="Give your integration a name"
                     {...field}
-                    defaultValue={field.value}
+                    value={field.value}
                     onChange={(e) => {
                       console.log(e.target.value);
                     }}
@@ -192,7 +190,7 @@ export function IntegrationForm({
                     placeholder="The username to access this instance"
                     description="Provide Access to specific users, if you have multiple users, seperate them by comma values."
                     {...field}
-                    defaultValue={field.value}
+                    value={field.value}
                   />
                 </FormControl>
                 <FormMessage />
@@ -209,14 +207,13 @@ export function IntegrationForm({
                     errorMsg={fieldMessages.dbName.errorMsg}
                     infoMsg={fieldMessages.dbName.infoMsg}
                     warningMsg={fieldMessages.dbName.warningMsg}
-                    state={formState !== "resting" ? "valid" : "resting"}
                     required
                     label="Database"
                     labelIcon={<Database width={16} height={16} />}
                     placeholder="give your database a unique name."
                     description="The database will store all the integration specific infoormation. "
                     {...field}
-                    defaultValue={field.value}
+                    value={field.value}
                   />
                 </FormControl>
                 <FormMessage />

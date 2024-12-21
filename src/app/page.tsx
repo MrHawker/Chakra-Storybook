@@ -12,8 +12,7 @@ export default async function Home() {
   return (
     <HydrateClient>
       <div className="flex items-center justify-between space-x-2 bg-[#121212] p-3 pt-40">
-        <Input state="error" label="Error" />
-        <Input state="info" label="Info" />
+        
       </div>
     </HydrateClient>
   );

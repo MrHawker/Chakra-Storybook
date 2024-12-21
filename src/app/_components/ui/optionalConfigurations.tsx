@@ -51,15 +51,15 @@ export function OptionalConfigurations({ open = false }: { open: boolean }) {
           <Input
             label="Port"
             required
-            defaultValue="5432"
-            state="valid"
+            value="5432"
+           
             labelIcon={<EthernetPort width={16} height={16} />}
           />
           <Input
             label="Schema"
             labelIcon={<DatabaseIcon width={16} height={16} />}
             placeholder="Give your Integration a name"
-            state="resting"
+            
           />
           <BooleanInput />
         </div>

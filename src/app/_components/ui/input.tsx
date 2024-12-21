@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import * as React from "react";
 
 import { cn } from "~/lib/utils";
@@ -7,7 +7,7 @@ import { InfoIcon } from "~/stories/icons/info";
 import { StopIcon } from "~/stories/icons/stop";
 import { DeleteIcon } from "~/stories/icons/delete";
 import { CheckmarkIcon } from "~/stories/icons/checkmark";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -18,13 +18,11 @@ const Input = React.forwardRef<
   React.ComponentProps<"input"> & {
     label?: string;
     labelIcon?: React.ReactNode;
-    state?: "resting" | "disabled" | "valid" | "error" | "info" | "warning";
     errorMsg?: string;
     infoMsg?: string;
     warningMsg?: string;
     dismissable?: boolean;
     description?: string;
-    defaultValue?: string;
   }
 >(
   (
@@ -33,42 +31,48 @@ const Input = React.forwardRef<
       errorMsg,
       infoMsg,
       warningMsg,
-      type,
       placeholder,
       required,
       label,
       labelIcon,
-      state,
-      defaultValue,
       dismissable,
       description,
       ...props
     },
     ref,
   ) => {
-    const [value, setValue] = useState<string>(defaultValue || "");
+    const [value, setValue] = useState<string>(props.value?.toString() || "");
+    const [state, setState] = useState<
+      "resting" | "disabled" | "valid" | "error" | "info" | "warning"
+    >("resting");
     
-    if(value.length === 0) {
-      state = "resting";
-    }
-    if(value.length > 0 && state !== "disabled") {
-      state = "valid";
-    }
-    if(infoMsg && infoMsg.length > 0) {
-      state = "info";
-    }
-    if(warningMsg && warningMsg.length > 0) {
-      state = "warning";
-    }
-    if(errorMsg && errorMsg.length > 0) {
-      state = "error";
-    }
+    useEffect(() => {
+      if (value.length === 0) {
+        setState("resting");
+      }
+      if (value.length > 0 && state !== "disabled") {
+        setState("valid");
+      }
+      if (infoMsg && infoMsg.length > 0) {
+        setState("info");
+      }
+      if (warningMsg && warningMsg.length > 0) {
+        setState("warning");
+      }
+      if (errorMsg && errorMsg.length > 0) {
+        setState("error");
+      }
+      if(props.disabled) {
+        setState("disabled");
+      }
+    }, [value, infoMsg, warningMsg, errorMsg,props.disabled]);
+
     return (
       <div
-        className={`rounded-sm w-full border border-inputBorderBackground bg-inputContainerBg p-1 pt-2 ${manrope.className} space-y-2 ${state === "disabled" ? "opacity-30" : ""} `}
+        className={`w-full rounded-sm border border-inputBorderBackground bg-inputContainerBg p-1 pt-2 ${manrope.className} space-y-2 ${state === "disabled" ? "opacity-30" : ""} `}
       >
         <div className="flex items-center justify-between pr-1">
-          <label className="flex space-x-1 p-1 text-sm font-medium text-inputLabel items-center">
+          <label className="flex items-center space-x-1 p-1 text-sm font-medium text-inputLabel">
             {labelIcon}
             <span className="ml-2">
               {label}
@@ -77,26 +81,27 @@ const Input = React.forwardRef<
           </label>
           {dismissable && <DeleteIcon />}
         </div>
-        {description && <p className="text-xs text-[#52525B] px-[6px]">{description}</p>}
+        {description && (
+          <p className="px-[6px] text-xs text-[#52525B]">{description}</p>
+        )}
         <div
-          className={`transition-all duration-200 flex items-center justify-between rounded-sm border border-inputBorderBackground bg-inputBackground p-3 focus-within:border-inputFocus ${state === "valid" ? "border-inputValid" : ""} ${state === "error" ? "border-inputErrorBorder bg-inputError" : ""} ${state === "info" ? "border-inputInfo bg-inputInfoBg" : ""} ${state === "warning" ? "border-inputWarning bg-inputWarningForeGround" : ""} `}
+          className={`flex items-center justify-between rounded-sm border border-inputBorderBackground bg-inputBackground p-3 transition-all duration-200 focus-within:border-inputFocus ${state === "valid" ? "border-inputValid" : ""} ${state === "error" ? "border-inputErrorBorder bg-inputError" : ""} ${state === "info" ? "border-inputInfo bg-inputInfoBg" : ""} ${state === "warning" ? "border-inputWarning bg-inputWarningForeGround" : ""} `}
         >
           <input
-
-            type={type}
+            
             className={cn(
-              "flex w-full bg-transparent text-sm font-medium text-inputText text-muted placeholder:text-inputText focus:outline-none ",
+              "flex w-full bg-transparent text-sm font-medium text-inputText text-muted placeholder:text-inputText focus:outline-none",
               className,
               state === "error" ? "text-destructive" : "",
               state === "info" ? "text-inputInfo" : "",
               state === "warning" ? "text-inputWarning" : "",
             )}
-            disabled={state === "disabled"}
+            
             ref={ref}
             placeholder={placeholder}
             {...props}
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) =>{ setValue(e.target.value)}}
           />
           {state === "resting" ? (
             <InfoIcon />
@@ -136,7 +141,7 @@ const Input = React.forwardRef<
           <div className="flex items-center space-x-1 px-[6px]">
             <StopIcon kind="warning" />
             {
-              <p className="text-inputWarning text-sm">
+              <p className="text-sm text-inputWarning">
                 {warningMsg ? warningMsg : "Warning message"}
               </p>
             }

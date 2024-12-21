@@ -54,7 +54,7 @@ export const resting: Story = {
     placeholder: "Give Your Integration a name",
     label: "Name",
     required: true,
-    state: "resting",
+    
     labelIcon: <TextCursor width={16} height={16} />,
   },
 };
@@ -62,8 +62,8 @@ export const resting: Story = {
 export const disabled: Story = {
   args: {
     ...resting.args,
-    defaultValue: "Artemis-BTC-Feed",
-    state: "disabled",
+    value: "Artemis-BTC-Feed",
+    disabled: true,
   },
 };
 export const focus: Story = {
@@ -80,32 +80,32 @@ export const focus: Story = {
 export const valid: Story = {
   args: {
     ...resting.args,
-    defaultValue: "Artemis-BTC-Feed",
-    state: "valid",
+    value: "Artemis-BTC-Feed",
+    
   },
 };
 
 export const error: Story = {
   args: {
     ...resting.args,
-    state: "error",
-    defaultValue: "Artemis-BTC-Feed",
+    
+    value: "Artemis-BTC-Feed",
     errorMsg: "Gib the user an Error Message",
   },
 };
 export const info: Story = {
   args: {
     ...resting.args,
-    state: "info",
-    defaultValue: "Artemis-BTC-Feed",
+   
+    value: "Artemis-BTC-Feed",
     infoMsg: "Gib the user some useful information",
   },
 };
 export const validating: Story = {
   args: {
     ...resting.args,
-    state: "warning",
-    defaultValue: "nirmal",
+    
+    value: "nirmal",
     warningMsg: "Special characters (such as @, #, $, %, &, *, and !) are not allowed in usernames.",
   },
 };

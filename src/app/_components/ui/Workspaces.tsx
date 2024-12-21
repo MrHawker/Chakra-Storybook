@@ -12,7 +12,6 @@ export interface Data {
   rows: any[];
 }
 
-
 interface WorkspacesProps {
   className?: string;
   list?: boolean;
