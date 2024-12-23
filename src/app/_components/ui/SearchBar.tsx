@@ -4,17 +4,19 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { Manrope } from "next/font/google";
+import { cn } from "~/lib/utils";
 
 const manrope = Manrope({
   subsets: ["latin"],
 });
 interface SearchBarProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder?: string;
+  className?: string;
 }
-export function SearchBar({placeholder, ...props}: SearchBarProps) {
+export function SearchBar({placeholder, className, ...props}: SearchBarProps) {
   return (
     <div style={{fontFamily: manrope.style.fontFamily}} 
-    className="bg-[#18181B] border border-[#27272A] flex w-full items-center space-x-2 rounded-sm px-1 py-[6px] "
+    className={cn("bg-[#18181B] border border-[#27272A] flex w-full items-center space-x-2 rounded-sm px-1 py-[6px]", className)}
     {...props}
     >
       <SearchIcon className="h-4 w-4" />

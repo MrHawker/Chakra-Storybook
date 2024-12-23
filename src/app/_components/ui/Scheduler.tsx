@@ -18,20 +18,12 @@ export function Scheduler({
   intialState = "noSchedule",
   expandedAtFirst = false,
 }: SchedulerProps) {
-  const [state, setState] = useState(intialState);
   const [isOpen, setIsOpen] = useState(expandedAtFirst);
+
   const [formValues, setFormValues] = useState({
     timeFrequency: "",
     cronExpression: "",
   });
-
-  const handleChangeState = (state: string) => {
-    if (state === "noSchedule") {
-      setState("hasSchedule");
-    } else {
-      setState("noSchedule");
-    }
-  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -55,15 +47,15 @@ export function Scheduler({
         <div className="flex items-stretch space-x-2">
           <div
             className={`flex cursor-pointer items-center gap-1 rounded-sm p-[6px] transition-all duration-200 hover:bg-[#27272A] ${
-              state === "noSchedule" && isOpen
+              intialState === "noSchedule" && isOpen
                 ? "bg-transparent"
-                : state === "hasSchedule"
+                : intialState === "hasSchedule"
                   ? "bg-[#064E3B]"
                   : "bg-[#09090B]"
             } `}
           >
             <Clock className="flex h-[16px] w-[16px] rounded-md text-white" />
-            {state === "hasSchedule" && (
+            {intialState === "hasSchedule" && (
               <span className="text-xs">Every 7 days</span>
             )}
           </div>
@@ -111,7 +103,7 @@ export function Scheduler({
               className="w-full rounded border border-[#27272A] bg-[#09090B] px-4 py-3 text-xs text-[#10B981] outline-none placeholder:text-[#52525B]"
               placeholder="0 0 * * SUN"
             />
-            {state === "noSchedule" && (
+            {intialState === "noSchedule" && (
               <Button
                 type="submit"
                 disabled={
@@ -122,7 +114,7 @@ export function Scheduler({
                 Submit
               </Button>
             )}
-            {state === "hasSchedule" && (
+            {intialState === "hasSchedule" && (
               <span className="flex gap-2">
                 <RunButton
                   disabled={
