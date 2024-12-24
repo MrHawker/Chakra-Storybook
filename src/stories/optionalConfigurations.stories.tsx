@@ -4,6 +4,13 @@ import { OptionalConfigurations } from "~/app/_components/ui/optionalConfigurati
 const meta: Meta<typeof OptionalConfigurations> = {
   title: "Components/OptionalConfigurations",
   component: OptionalConfigurations,
+  decorators: [
+    (Story) => (
+      <div className="max-w-[600px] max-h-[600px]">
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
   parameters: {
     docs: {

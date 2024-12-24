@@ -7,6 +7,13 @@ import { MappingInput } from "~/app/_components/ui/mapping-input";
 
 const meta: Meta<typeof MappingInput> = {
   title: "Components/CanvasElements/chakraInputsDropdowns/Mapping",
+  decorators: [
+    (Story) => (
+      <div className="max-w-[600px] max-h-[600px] min-w-[600px]">
+        <Story />
+      </div>
+    ),
+  ],
   component: MappingInput,
   tags: ['autodocs'],
   parameters: {

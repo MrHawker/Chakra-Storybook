@@ -34,7 +34,7 @@ export function Workspaces({ className, list, data = { columns: [], rows: [] } }
           "transition-all duration-300 ease-in-out",
           isList ? "opacity-0 z-0 scale-95" : "opacity-100 z-10 scale-100"
         )}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {data.rows.map((row: any, index: number) => (
               <GridCard key={index} {...row} />
             ))}

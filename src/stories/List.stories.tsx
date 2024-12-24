@@ -4,6 +4,7 @@ import { List } from "~/app/_components/ui/List";
 
 const meta: Meta<typeof List> = {
   title: "Components/Workspaces/List",
+  
   component: List,
   tags: ["autodocs"],
   parameters: {

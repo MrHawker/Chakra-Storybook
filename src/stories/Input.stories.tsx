@@ -7,7 +7,13 @@ import { TextCursor } from 'lucide-react';
 const meta: Meta<typeof Input> = {
   title: "Components/CanvasElements/chakraInputsDropdowns/Input",
   component: Input,
-  
+  decorators: [
+    (Story) => (
+      <div className="max-w-[400px] max-h-[400px] min-w-[200px]">
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
   parameters: {
     docs: {

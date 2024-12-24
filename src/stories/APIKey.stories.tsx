@@ -3,6 +3,13 @@ import { APIKey } from "~/app/_components/ui/APIKey";
 
 const meta: Meta<typeof APIKey> = {
   title: "Components/Workspaces/APIKey",
+  decorators: [
+    (Story) => (
+      <div className="max-w-[800px] max-h-[800px] min-w-[600px]">
+        <Story />
+      </div>
+    ),
+  ],
   component: APIKey,
   tags: ["autodocs"],
   parameters: {

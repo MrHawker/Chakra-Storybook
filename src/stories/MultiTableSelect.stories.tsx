@@ -4,6 +4,13 @@ import { MultiTableSelect } from "~/app/_components/ui/MultiTableSelect";
 const meta: Meta<typeof MultiTableSelect> = {
   title: "Components/CanvasElements/MultiTableSelect",
   component: MultiTableSelect,
+  decorators: [
+    (Story) => (
+      <div className="max-w-[600px] max-h-[600px]">
+        <Story />
+      </div>
+    ),
+  ],
   tags: ["autodocs"],
   parameters: {
     docs: {

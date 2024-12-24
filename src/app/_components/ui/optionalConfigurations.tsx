@@ -2,20 +2,24 @@ import { Manrope } from "next/font/google";
 import { ChevronsUp, DatabaseIcon, EthernetPort, TextCursorIcon } from "lucide-react";
 import { ListChecks } from "lucide-react";
 import { ChevronsDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BooleanInput } from "./BooleanInput";
 import { Input } from "./input";
 
 const manrope = Manrope({
   subsets: ["latin"],
 });
+
 export function OptionalConfigurations({ open = false }: { open: boolean }) {
   const [isOpen, setIsOpen] = useState(open);
+  useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
   return (
     <div
       className={`rounded-xl border border-inputBorderBackground p-4 ${manrope.className} overflow-hidden space-y-6`}
     >
-      <div className="flex gap-9">
+      <div className="flex gap-9 justify-between">
         <div className="space-y-3">
           <div className="flex items-center space-x-3 text-white">
             <ListChecks />

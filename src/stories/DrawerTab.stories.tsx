@@ -5,6 +5,13 @@ import { DrawerTab } from "~/app/_components/ui/DrawerTab";
 const meta: Meta<typeof DrawerTab> = {
   title: "Components/Workspaces/DrawerTab",
   component: DrawerTab,
+  decorators: [
+    (Story) => (
+      <div className="max-w-[600px] max-h-[600px] min-w-[400px]">
+        <Story />
+      </div>
+    ),
+  ],
   tags: ["autodocs"],
   parameters: {
     docs: {

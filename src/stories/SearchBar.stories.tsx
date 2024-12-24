@@ -4,6 +4,13 @@ import { SearchBar } from "~/app/_components/ui/SearchBar";
 const meta: Meta<typeof SearchBar> = {
   title: "Components/CanvasElements/SearchBar",
   component: SearchBar,
+  decorators: [
+    (Story) => (
+      <div className="max-w-[400px] max-h-[400px]">
+        <Story />
+      </div>
+    ),
+  ],
   tags: ["autodocs"],
   parameters: {
     docs: {

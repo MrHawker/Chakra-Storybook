@@ -4,6 +4,7 @@ import { CustomButton } from "~/app/_components/ui/custom-button";
 const meta: Meta<typeof CustomButton> = {
   title: "Components/Buttons/destructiveBtn",
   component: CustomButton,
+  
   tags: ['autodocs'],
   parameters: {
     docs: {

@@ -5,6 +5,13 @@ const meta: Meta<typeof IntegrationChip> = {
   title: "Components/CanvasElements/chakraInputsDropdowns/integrationChip",
   component: IntegrationChip,
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <div className="max-w-[400px] max-h-[400px] min-w-[200px]">
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     docs: {
       description: {

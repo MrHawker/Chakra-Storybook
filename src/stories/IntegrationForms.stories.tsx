@@ -4,6 +4,13 @@ import { InputMessages, IntegrationForm } from "~/app/_components/ui/Integration
 const meta: Meta<typeof IntegrationForm> = {
   title: "Components/IntegrationForm", 
   component: IntegrationForm,
+  decorators: [
+    (Story) => (
+      <div className="max-w-[600px] max-h-[800px]">
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -81,23 +88,7 @@ export const ReadyToCreate: Story = {
     messages: defaultMessages,
     formState: "readyToCreate",
   },
-};
-
-export const EnabledView: Story = {
-  args: {
-    ...ReadyToTest.args,
-    messages: defaultMessages,
-    formState: "enabledView",
-  },
-};      
-
-export const AvailableList: Story = {
-  args: {
-    ...ReadyToTest.args,
-    messages: defaultMessages,
-    formState: "availableList",
-  },
-};                
+};            
 
 export const RetryActionInfo: Story = {
   args: {

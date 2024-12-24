@@ -7,6 +7,13 @@ import { Snowflake } from "./icons/snowflake";
 
 const meta: Meta<typeof Dropdown> = {
   title: "Components/CanvasElements/chakraInputsDropdowns/Dropdown",
+  decorators: [
+    (Story) => (
+      <div className="max-w-[400px] max-h-[400px] min-w-[200px]">
+        <Story />
+      </div>
+    ),
+  ],
   component: Dropdown,
   tags: ['autodocs'],
   parameters: {

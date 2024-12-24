@@ -4,6 +4,13 @@ import { Data } from "~/app/_components/ui/Workspaces";
 const meta: Meta<typeof Workspaces> = {
   title: "Components/Workspaces/Workspaces",
   component: Workspaces,
+  decorators: [
+    (Story) => (
+      <div className="max-w-[800px] max-h-[800px] min-w-[600px]">
+        <Story />
+      </div>
+    ),
+  ],
   tags: ["autodocs"],
   parameters: {
     docs: {
